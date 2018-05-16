@@ -17,10 +17,6 @@ module.exports = {
       type: 'string',
       size: 30,
     },
-    cus_phone: {
-      type: 'string',
-      size: 12,
-    },
   }
 };
 

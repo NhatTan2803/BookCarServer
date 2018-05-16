@@ -32,9 +32,13 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  '/': {
-    view: 'homepage'
-  }
+  //userControler
+  //'POST /users/create':'UsersController.user_create',
+  'POST /users/login':'UsersController.user_login',
+  'POST /drive/create':'Driver_profiles.drive_create',
+
+  //customerController
+  'POST /cus/create':'Customer_profiles.cus_create',
 
   /***************************************************************************
   *                                                                          *

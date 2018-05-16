@@ -41,6 +41,9 @@ module.exports.routes = {
   //customerController
   'POST /cus/create':'Customer_profiles.cus_create',
 
+  //Recomendation
+  'POST /drive/recommend-create':'Driver_profiles.drive_recommend'
+
   /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *

@@ -66,4 +66,34 @@ module.exports = {
             return;
         })
     },
+    drive_recommend: function (req, res) {
+        var user_phone = req.param('user_phone');
+        re_dri_id = req.param('user_id')
+        Users.findOne({ user_phone: user_phone }).exec(function (err, found) {
+            if (err) { return console.log('Phone not find') }
+            if (found) {
+                console.log(found)
+                Driver_profiles.findOne({ drive_id: found.user_info_id }).exec(function (err, foundDriver) {
+                    if (err) { return console.log('Phone not valiable') }
+                    if (foundDriver) {
+                        console.log(foundDriver)
+                        Recommend.create({
+                            re_dri_id,
+                            re_recommended_id: found.user_id,
+                        }).exec(function (err, created) {
+                            if (err) {
+                                return console.log('No Success')
+                            }
+                            if (created) {
+                                return res.json({
+                                    status: 'success',
+                                    message: 'Added recommendation'
+                                })
+                            }
+                        })
+                    }
+                })
+            }
+        })
+    }
 };

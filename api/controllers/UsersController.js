@@ -34,13 +34,23 @@ module.exports = {
                     }
                     else {
                         if (valid) {
-                            return res.json({
-                                status: 'success',
-                                message: 'Đăng nhập thành công',
-                                token: jwt.encode(found.user_phone),
-                                user: found,
+                            Driver_profiles.findOne({ drive_id: found.user_info_id }).exec(function (err, foundDriver) {
+                                if (foundDriver) {
+                                    return res.json({
+                                        status: 'driver',
+                                        message: 'success',
+                                        token: jwt.encode(found.user_phone),
+                                        user: found,
+                                    })
+                                } else {
+                                    return res.json({
+                                        status: 'customer',
+                                        message: 'success',
+                                        token: jwt.encode(found.user_phone),
+                                        user: found,
+                                    })
+                                }
                             })
-
                         }
                         else {
                             if (!valid) {
@@ -51,42 +61,9 @@ module.exports = {
                             }
                         }
                     }
-
-
                 })
             }
         })
     },
-    // user_create: function (req, res) {
-    //     var user_phone = req.param('user_phone')
-    //     user_password = req.param('user_password');
-    //     user_idProfile = req.param('user_idProfile');
-
-    //     Users.findOne({ user_phone: user_phone }).exec(function (err, found) {
-    //         if (err) { return console.log('Lỗi Server') }
-    //         if (found) {
-    //             return res.json({
-    //                 status: 'error',
-    //                 message: 'Email đã tồn tại '
-    //             });
-    //         } else {
-    //             Users.create({
-    //                 user_phone,
-    //                 user_password,
-    //                 user_idProfile
-    //             }).exec(function (err, created) {
-    //                 if (err) { return console.log('loi ne') }
-    //                 if (created) {
-    //                     // return res.json({
-    //                     //     status: 'success',
-    //                     //     message: 'Tạo tài khoản thành công'
-    //                     // });
-    //                     console.log(created)
-    //                     if(created.user_idProfile)
-    //                 }
-    //             });
-    //         }
-    //     });
-    // }
 };
 

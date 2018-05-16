@@ -36,6 +36,7 @@ module.exports.routes = {
   //'POST /users/create':'UsersController.user_create',
   'POST /users/login':'UsersController.user_login',
   'POST /drive/create':'Driver_profiles.drive_create',
+  'GET /drive/getRequest':'Driver_profiles.drive_request',
 
   //customerController
   'POST /cus/create':'Customer_profiles.cus_create',

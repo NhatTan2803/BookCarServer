@@ -47,5 +47,23 @@ module.exports = {
                 });
             }
         });
-    }
+    },
+    drive_request: function (req, res) {
+        var req_dri_id = req.param('req_dri_id')
+        //console.log('chp truyen xuong'+req.param('drink_shop_id'))
+        Requests.find({ req_dri_id }).exec(function (err, find) {
+            if (err) {
+                return console.log(err)
+            }
+            if (find) {
+                return res.json({
+                    status: 'success',
+                    requests: find,
+                })
+            }
+        }, error => {
+            console.log(error);
+            return;
+        })
+    },
 };

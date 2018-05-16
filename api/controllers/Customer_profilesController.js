@@ -8,7 +8,7 @@
 module.exports = {
     cus_create: function (req, res) {
         var
-            user_phone = req.param('user_phone')
+        user_phone = req.param('user_phone')
         user_password = req.param('user_password')
         cus_name = req.param('cus_name');
 

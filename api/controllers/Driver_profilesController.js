@@ -6,6 +6,7 @@
  */
 
 module.exports = {
+    // create account for driver
     drive_create: function (req, res) {
         var
             user_phone = req.param('user_phone')
@@ -15,6 +16,7 @@ module.exports = {
         drive_age = req.param('drive_age')
         drive_license = req.param('drive_license')
         drive_image = req.param('drive_image')
+        user_type = 'driver'
         drive_car_image = req.param('drive_car_image');
 
         Users.findOne({ user_phone: user_phone }).exec(function (err, found) {
@@ -34,6 +36,7 @@ module.exports = {
                             user_phone,
                             user_password,
                             user_info_id: created.drive_id,
+                            user_type,
                         }).exec(function (err, createdUser) {
                             if (err) { return console.log('khong tao duoc user') }
                             if (createdUser) {
@@ -48,9 +51,10 @@ module.exports = {
             }
         });
     },
+
+    // requests of driver
     drive_request: function (req, res) {
         var req_dri_id = req.param('req_dri_id')
-        //console.log('chp truyen xuong'+req.param('drink_shop_id'))
         Requests.find({ req_dri_id }).exec(function (err, find) {
             if (err) {
                 return console.log(err)
@@ -66,6 +70,26 @@ module.exports = {
             return;
         })
     },
+
+    // history request
+    drive_history: function (req,res) {
+        var req_dri_id = req.param('req_dri_id')
+        var sql =`SELECT * FROM requests WHERE req_dri_id= ${req_dri_id} AND req_status=completed`
+        Requests.query(sql,function (err,result) {
+            if(err) {
+                return console.log(err);
+            }
+            if(result)
+            {
+                return res.json({
+                    status:'success',
+                    resquest:result,
+                })
+            }
+        })
+    },
+
+    // recommmend driver
     drive_recommend: function (req, res) {
         var user_phone = req.param('user_phone');
         re_dri_id = req.param('user_id')

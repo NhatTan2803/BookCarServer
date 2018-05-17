@@ -41,6 +41,9 @@ module.exports.routes = {
   //customerController
   'POST /cus/create':'Customer_profiles.cus_create',
 
+  //driver Controller
+  'GET /drive/history':'Driver_profiles.drive_history',
+
   //Recomendation
   'POST /drive/recommend-create':'Driver_profiles.drive_recommend'
 

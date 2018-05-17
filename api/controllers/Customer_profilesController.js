@@ -10,7 +10,8 @@ module.exports = {
         var
         user_phone = req.param('user_phone')
         user_password = req.param('user_password')
-        cus_name = req.param('cus_name');
+        cus_name = req.param('cus_name')
+        user_type ='customer'
 
         Users.findOne({ user_phone: user_phone }).exec(function (err, found) {
             if (err) { return console.log('Lỗi Server') }
@@ -29,6 +30,7 @@ module.exports = {
                             user_phone,
                             user_password,
                             user_info_id: created.cus_id,
+                            user_type,
                         }).exec(function (err, createdUser) {
                             if (err) { return console.log('khong tao duoc user') }
                             if (createdUser) {

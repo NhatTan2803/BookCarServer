@@ -26,6 +26,10 @@ module.exports = {
     user_info_id:{
      type:'integer',
     },
+    user_type:{
+      type:'string',
+      enum:['driver','customer']
+    }
   },
   beforeCreate: function(user, cb){
     bcrypt.genSalt(10, function (err, salt) {

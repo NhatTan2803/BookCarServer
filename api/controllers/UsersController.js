@@ -34,23 +34,32 @@ module.exports = {
                     }
                     else {
                         if (valid) {
-                            Driver_profiles.findOne({ drive_id: found.user_info_id }).exec(function (err, foundDriver) {
-                                if (foundDriver) {
-                                    return res.json({
-                                        status: 'driver',
-                                        message: 'success',
-                                        token: jwt.encode(found.user_phone),
-                                        user: found,
-                                    })
-                                } else {
-                                    return res.json({
-                                        status: 'customer',
-                                        message: 'success',
-                                        token: jwt.encode(found.user_phone),
-                                        user: found,
+                            if (found.user_type === 'driver') {
+                                Driver_profiles.findOne({ drive_id: found.user_info_id }).exec(function (err, foundDriver) {
+                                    if (foundDriver) {
+                                        return res.json({
+                                            status: 'driver',
+                                            message: 'success',
+                                            token: jwt.encode(found.user_phone),
+                                            user: found,
+                                        })
+                                    }
+                                })
+                            } else {
+                                if (found.user_type === 'customer') {
+                                    Driver_profiles.findOne({ drive_id: found.user_info_id }).exec(function (err, foundCus) {
+                                        if (foundCus) {
+                                            return res.json({
+                                                status: 'customer',
+                                                message: 'success',
+                                                token: jwt.encode(found.user_phone),
+                                                user: found,
+                                            })
+                                        }
                                     })
                                 }
-                            })
+                            }
+
                         }
                         else {
                             if (!valid) {
